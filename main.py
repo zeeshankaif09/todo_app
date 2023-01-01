@@ -1,7 +1,7 @@
 from functions import get_todos, write_todos
 import time
 
-now = time.strftime( )
+now = time.strftime( "%b %d, %Y %H: %M: %S")
 print("it is ", now)
 
 while True:
@@ -30,10 +30,10 @@ while True:
           number = int(user_action[5:])
           print(number)
           number = number - 1
-          todo = get_todos()
+          todos = get_todos()
           new_todo = input("enter a new todos :")
-          todos[number] = new_todo + "\n"
-          write_todos("todos.txt", todos)
+          todos[number] = new_todo + '\n'
+          write_todos(todos)
       except ValueError:
           print("your given command is not valid")
           continue
