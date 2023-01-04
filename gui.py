@@ -9,8 +9,8 @@ if not os.path.exists("todos.txt"):
 
 sg.theme("Darkpurple4")
 
-clock = sg.Text("", key="clock")
-label = sg.Text("type in a To-do")
+clock = sg.Text("", key='clock')
+label = sg.Text("Type in a To-do")
 input_box = sg.InputText(tooltip="Enter a todo", key="todo")
 add_button = sg.button("Add")
 list_box = sg.List_box(values=functions.get_todos(), key='todos',
@@ -27,7 +27,7 @@ window = sg.Window('My-Todo-App',
                    font=('Helvetica', 20))
 
 while True:
-    event, values = window.read(timeout= 10)
+    event, values = window.read(timeout= 200)
     window["clock"].update(value=time.strftime(" %b %d, %Y %H: %M: %S"))
 
     match event:
@@ -37,10 +37,11 @@ while True:
             todos.append(new_todo)
             function.write_todos(todos)
             window['todos'].update(values=todos)
-        case "Edit" :
+        case "Edit":
             try:
                 todo_to_edit = values['todos'][0]
-                new_todo = values[" todos"]
+                new_todo = values["todo"]
+
                 todos = function.get_todos()
                 index = todos.index(todo_to_edit)
                 todos[index] = new_todo
@@ -54,14 +55,14 @@ while True:
                 todos = functions.get_todos()
                 todos.remove(todo_to_complete)
                 functions.write_todos(todos)
-                window['todos'].update(values="todo")
+                window['todos'].update(values=todo)
                 window['todo'].update(values="")
             except IndexError:
                 sg.popup("please select a item first : ", font=("helvetica", 20))
-        case "exit":
+        case "Exit":
             break
         case 'todos':
-            window['todos'].update(value=values['todos'])
+            window['todos'].update(value=values['todos'][0])
         case sg.Win_CLOSED:
             break
 
